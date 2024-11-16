@@ -34,7 +34,11 @@ function VideoUpload() {
         try {
             const response = await axios.post("/api/video-upload", formData)
             // check for 200 response
+            if ( response.status !== 200){
+              throw new Error("Error while uploading the video")
+            }
             router.push("/")
+            
         } catch (error) {
             console.log(error)
             // notification for failure
