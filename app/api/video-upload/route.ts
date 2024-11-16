@@ -91,12 +91,21 @@ export async function POST(request: NextRequest) {
       message: "Video uploaded successfully",
       data: video,
     });
-  } catch (error: any) {
-    console.error("Error uploading video file:", error.message);
-    return NextResponse.json(
-      { error: "Video upload failed", details: error.message },
-      { status: 500 }
-    );
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Error uploading video file:", error.message);
+      return NextResponse.json(
+        { error: "Video upload failed", details: error.message },
+        { status: 500 }
+      );
+    } else {
+      // Handle unknown error type
+      console.error("Error uploading video file: Unknown error type");
+      return NextResponse.json(
+        { error: "Video upload failed", details: "An unknown error occurred" },
+        { status: 500 }
+      );
+    }
   } finally{
     await prisma.$disconnect()
   }

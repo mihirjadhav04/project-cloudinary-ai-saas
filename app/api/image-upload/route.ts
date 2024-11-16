@@ -12,7 +12,7 @@ cloudinary.config({
 interface CloudinaryUploadResult {
   public_id: string;
   url: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export async function POST(request: NextRequest) {
@@ -50,12 +50,21 @@ export async function POST(request: NextRequest) {
       publicId: uploadResult.public_id,
       url: uploadResult.secure_url,
     });
-  } catch (error: any) {
-    console.error("Error uploading file:", error);
-    return NextResponse.json(
-      { error: "File upload failed", details: error.message },
-      { status: 500 }
-    );
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Error uploading file:", error.message);
+      return NextResponse.json(
+        { error: "File upload failed", details: error.message },
+        { status: 500 }
+      );
+    } else {
+      // Handle unknown error type
+      console.error("Error uploading file: Unknown error type");
+      return NextResponse.json(
+        { error: "File upload failed", details: "An unknown error occurred" },
+        { status: 500 }
+      );
+    }
   }
 }
 
