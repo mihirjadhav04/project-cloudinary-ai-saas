@@ -30,21 +30,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "File not found!" }, { status: 400 });
     }
 
-    // Convert the file into a buffer
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Upload to Cloudinary
     const uploadResult: CloudinaryUploadResult = await new Promise(
       (resolve, reject) => {
         cloudinary.uploader.upload_stream(
-          { folder: "cloudinary-ai-saas-uploads" }, // Optional: Specify folder in Cloudinary
+          { folder: "cloudinary-ai-saas-uploads" },
           (error, result) => {
-            if (error) {
-              reject(error);
-            } else {
-              resolve(result as CloudinaryUploadResult);
-            }
+            if (error) reject(error);
+            else resolve(result as CloudinaryUploadResult);
           }
         ).end(buffer);
       }
@@ -52,7 +47,8 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       message: "File uploaded successfully",
-      data: uploadResult,
+      publicId: uploadResult.public_id,
+      url: uploadResult.secure_url,
     });
   } catch (error: any) {
     console.error("Error uploading file:", error);
@@ -62,3 +58,4 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
