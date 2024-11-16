@@ -1,6 +1,3 @@
-Here’s a markdown syntax file tailored for your GitHub project:
-
-```markdown
 # Cloudinary AI-Powered SaaS
 
 A modern SaaS application leveraging **Cloudinary AI** for media management, transformation, and optimization, built using **Next.js**, **Prisma**, **NeonDB**, and **Daisy UI**.
@@ -75,7 +72,7 @@ A modern SaaS application leveraging **Cloudinary AI** for media management, tra
 ---
 
 ## 🌐 Live Demo
-Check out the live demo: [Live Link](https://your-live-demo-link.com)
+Check out the live demo: [coming soon..]()
 
 ---
 
@@ -86,9 +83,3 @@ Contributions are welcome! Follow these steps:
 3. Commit your changes: `git commit -m 'Add some feature'`.
 4. Push to the branch: `git push origin feature-name`.
 5. Submit a pull request.
-
----
-
-## 📧 Contact
-For any queries, reach out at [mihirjadhavofficial@gmail.com].
-```
